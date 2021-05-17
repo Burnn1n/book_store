@@ -19,6 +19,8 @@ else{
 	exit;
 }
 
+
+
 $img_admin = 'https://thumbs.dreamstime.com/b/admin-icon-trendy-design-style-isolated-white-background-vector-simple-modern-flat-symbol-web-site-mobile-logo-app-135742404.jpg';
 $img_cashier = 'https://thumbs.dreamstime.com/b/cashier-machine-icon-vector-isolated-white-background-your-web-mobile-app-design-cashier-machine-logo-concept-cashier-134155251.jpg';
 $img_user = 'https://icon-library.com/images/my-account-icon/my-account-icon-18.jpg';
@@ -47,6 +49,50 @@ $img_user = 'https://icon-library.com/images/my-account-icon/my-account-icon-18.
 				<div class="card-body">
 					<div class="row">
 						{{ csrf_field()}}
+						<div class='col-sm-12'>
+						<form action="/user" method="GET">
+							<div class="col-sm-6">
+								<div class="row">
+									<div class="col-sm-11">
+										<input type = "number" class="form-control"name = "result"placeholder="Утасны дугаарар хайх"required>
+									</div>
+									<div class="col-sm-1">
+										<input type="image" src="https://logoeps.com/wp-content/uploads/2014/08/2074-google-web-search-icon-vector-icon-vector-eps.png"
+						 				alt="submit" name="submit" width="44" height="43">
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+						@if(isset($_GET['result']))
+						<div class='col-sm-12'style=';margin-bottom:20px;border-bottom: 1px solid #7f7f7f;'>Хайлтын илэрц</div>
+						<div class='col-sm-12'>
+							<table class='table table-striped mt-3'>
+								<tr><th>Нэр</th><th>И-мэйл</th><th>Утасны дугаар</th><th>Хэтэвч</th><th>Удирдах</th></tr>
+								</div>
+							<?php
+								$phone = $_GET['result'];
+								$sql = "SELECT * FROM users WHERE user_phone LIKE '$phone%'";
+								$db->print_user($img_user,$sql,3,$_SESSION['user_type']);
+							?>
+							</table>
+						
+						@else
+						<div class='col-sm-12'style=';margin-bottom:20px;border-bottom: 1px solid #7f7f7f;'>Захиалга баталгаажсан хэрэглэгчид</div>
+						<div class='col-sm-12'>
+							<table class='table table-striped mt-3'>
+								<tr><th>Нэр</th><th>И-мэйл</th><th>Утасны дугаар</th><th>Удирдах</th></tr>
+								<?php
+								$sql = "SELECT order_user_id FROM orders WHERE order_tuluw_id = 3";
+								$result = mysqli_query($db->conn,$sql);
+								while($row = mysqli_fetch_row($result)){
+									$user_id = $row[0];
+									$sql = "SELECT * FROM users WHERE id = $user_id";
+									$db->print_user($img_user,$sql,3,$_SESSION['user_type']);
+								}
+								?>
+							</table>
+						</div>
 						<div class='col-sm-12'style=';margin-bottom:20px;border-bottom: 1px solid #7f7f7f;'>Админ</div>
 						<div class='col-sm-12'>
 							<table class='table table-striped mt-3'>
@@ -77,6 +123,9 @@ $img_user = 'https://icon-library.com/images/my-account-icon/my-account-icon-18.
 								?>
 							</table>
 						</div>
+						@endif
+						
+
 						
 					</div>
 				</div>

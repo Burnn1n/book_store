@@ -77,10 +77,15 @@ if(isset($_GET['save'])){
 		if(!empty($c1)&&!empty($c2)&&!empty($c3)&&($c4==0or!empty($c4))&&!empty($c5)){
 			$sql = "update users set user_name = '$c1',user_phone = '$c2',user_address = '$c3',user_wallet = '$c4',
 			user_password='$c5',updated_at = NOW(),user_type_id='$key' WHERE id = '$user_id'";
-			mysqli_query($db->conn,$sql);
-			$_SESSION['edit_user'] = null;
+			if(mysqli_query($db->conn,$sql)){
+				$_SESSION['edit_user'] = null;
 			header("Location: /user/$user_id");
 			exit;
+			}
+			else{
+				echo "Утасны дугаар бүртгэгдсэн байна";
+			}
+			
 		}
 		else{
 			$error = "Оролтууд хоосон байж болохгүй";
@@ -90,10 +95,15 @@ if(isset($_GET['save'])){
 		if(!empty($c1)&&!empty($c2)&&!empty($c3)&&!empty($c5)){
 			$sql = "update users set user_name = '$c1',user_phone = '$c2',user_address = '$c3',
 			user_password='$c5',updated_at = NOW() WHERE id = '$user_id'";
-			mysqli_query($db->conn,$sql);
-			$_SESSION['edit_user'] = null;
+			if(mysqli_query($db->conn,$sql)){
+				$_SESSION['edit_user'] = null;
 			header("Location: /user/$user_id");
 			exit;
+			}
+			else{
+				$error = "Утасны дугаар бүртгэгдсэн байна";
+			}
+			
 		}
 		else{
 			$error = "Оролтууд хоосон байж болохгүй";
