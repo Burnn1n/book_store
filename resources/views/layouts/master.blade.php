@@ -101,7 +101,7 @@ if (session_status() === PHP_SESSION_NONE) {
 						if($_SESSION['user_type'] == "1"){
 							echo '<div class="col-sm-3"><a href="/">Эхлэл</a></div>
 							<div class="col-sm-3"><a href="/book">Бүх номнууд</a></div>
-							<div class="col-sm-3"><a href="/category">Ангилал</a>	</div>';
+							<div class="col-sm-3"><a href="/book_add">Ном нэмэх</a>	</div>';
 							echo "<div class='col-sm-3'><a href='/user'>Хэрэглэгчид</a>	</div>";
 						}
 							//hudaldagch bol

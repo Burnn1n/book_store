@@ -62,7 +62,6 @@ if(isset($_GET['save'])){
 	$c6 = $_GET['pages'];
 	$c7 = $_GET['desc'];
 	$c8 = $_GET['rent_price'];
-
 	//oroltuudiig shalgaj baina hooson ugui yu gedgiig
 	if(!empty($c1)&&!empty($c2)&&($c3==0or!empty($c3))&&($c4==0or!empty($c4))&&($c5==0or!empty($c5))&&($c6==0or!empty($c6))&&!empty($c7)
 	&&($c8==0or!empty($c8))){
@@ -271,47 +270,53 @@ if(isset($_GET['rent'])){
 							<table cellspacing='0' cellpadding='0'>
 								<tbody>
 									<tr>
-										<td class='pro_name' colspan='2'><?php echo (!isset($_SESSION['edit']))?$book_name:
-										"<input type = 'text' value='$book_name' name='name'>";?>
+										<td class='pro_name' colspan='2'><?php echo (isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<input type = 'text' value='$book_name' name='name'>":$book_name;?>
 										</td>
 									</tr>
 									<tr>
 										<td class ='nm'>Зохиолч:</td>
-										<td class='desc'><?php echo (!isset($_SESSION['edit']))?$author:
-										"<input class='form-control'  type = 'text' value='$author' name='author'>";?></td>
+										<td class='desc'><?php echo (isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<input class='form-control'  type = 'text' value='$author' name='author'>":$author;?>
+										</td>
 									</tr>
 									<tr>
 										<td class ='nm'>Үнэ:</td>
 										<td class='desc' style='font-size:2em; color: orange;'>
-											<?php echo(!isset($_SESSION['edit']))?$num:"<input type = 'number' value='$num' name='price'>";?> төгрөг
+											<?php echo(isset($_SESSION['edit']) and $_SESSION['user_type'] == "1")?
+											"<input type = 'number' value='$num' name='price'>":$num;?> төгрөг
 										</td>
 									</tr>
 									<tr>
 										<td class ='nm'>pdf үнэ:  </td>
 										<td class='desc'>
-										<?php echo(!isset($_SESSION['edit']))?$o_price:"<input type = 'text' value='$o_price' name='o_price'> Хэрэв онлайн хувилбар
-										байхгүй бол 0 эсвэл үсгэн утга оруулна уу";?>
+										<?php echo(isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<input type = 'text' value='$o_price' name='o_price'> Хэрэв онлайн хувилбар
+										байхгүй бол 0 эсвэл үсгэн утга оруулна уу":$o_price;?>
 										</td>
 									</tr>
 									<tr>
 										<td class ='nm'>Түрээсийн үнэ(7 хоног):  </td>
 										<td class='desc'>
-										<?php echo(!isset($_SESSION['edit']))?$rent_price:"<input type = 'text' value='$rent_price' name='rent_price'>";?>
+										<?php echo(isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<input type = 'text' value='$rent_price' name='rent_price'>":$rent_price;?>
 										</td>
 									</tr>
 									<tr>
 										<td class ='nm'>Үлдэгдэл:</td>
-										<td class='desc'><?php echo(!isset($_SESSION['edit']))?$quantity:"<input type = 'number' 
-										value='$quantity' name='quantity'>";?> ширхэг</td>
+										<td class='desc'><?php echo(isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<input type = 'number' value='$quantity' name='quantity'>":$quantity;?> ширхэг</td>
 									</tr>
 									<tr>
 										<td class ='nm'>Хуудасны тоо:</td>
-										<td class='desc'><?php echo(!isset($_SESSION['edit']))?$pages:"<input type = 'number' value='$pages' name='pages'>";?> ширхэг</td>
+										<td class='desc'><?php echo(isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<input type = 'number' value='$pages' name='pages'>":$pages;?> ширхэг</td>
 										
 									</tr>
 									<tr>
 										<td class ='nm'>Тухай:</td>
-										<td class='desc'><?php echo(!isset($_SESSION['edit']))?$desc:"<textarea name='desc'>$desc</textarea>";
+										<td class='desc'><?php echo(isset($_SESSION['edit'])and$_SESSION['user_type'] == "1")?
+										"<textarea name='desc'>$desc</textarea>":$desc;
 										?></td>
 									</tr>
 								</tbody>
@@ -321,7 +326,7 @@ if(isset($_GET['rent'])){
 									<p><span class = 'error'>{{$error}}</span></p>
 								</div>
 									<?php
-										if(isset($_SESSION['edit'])){
+										if(isset($_SESSION['edit'])and$_SESSION['user_type'] == "1"){
 											echo "<div class='col-sm-6' style='float:left;'>
 											<input class='button'type='submit'name='cancel' value='Болих'>";
 											echo"</div>
@@ -369,6 +374,7 @@ if(isset($_GET['rent'])){
 								//engiin uyd ebook-nii talaarh medeelel
 								if(!isset($_SESSION['upload'])){
 									echo "<div class = 'col-sm-8'><input type='submit' value='upload ebook' name = 'upload'></div>";
+
 									echo "<div class='col-sm-12'><table style='margin-left:0px;'>
 									<tr>
 										<td>

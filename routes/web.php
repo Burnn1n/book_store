@@ -15,7 +15,10 @@ Route::get('/Bestseller', function ($home_name='Bestseller') {
 Route::get('/search',function(){
     return view('search');
 });
-
+Route::get('/book_add',function () {
+    return view('book.book_add');
+});
+Route::post('/add','App\Http\Controllers\BookController@single');
 Route::get('/book/{book_name}',function ($book_name) {
     return view('book.book_single',compact('book_name'));
 });
@@ -23,6 +26,7 @@ Route::get('/book/{book_name}',function ($book_name) {
 Route::get('/book',function () {
     return view('book.book');
 });
+
 
 Route::get('/category',function () {
     return view('category.category');
