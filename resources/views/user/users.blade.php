@@ -93,6 +93,21 @@ $img_user = 'https://icon-library.com/images/my-account-icon/my-account-icon-18.
 								?>
 							</table>
 						</div>
+						<div class='col-sm-12'style=';margin-bottom:20px;border-bottom: 1px solid #7f7f7f;'>Түрээс баталгаажсан хэрэглэгчид</div>
+						<div class='col-sm-12'>
+							<table class='table table-striped mt-3'>
+								<tr><th>Нэр</th><th>И-мэйл</th><th>Утасны дугаар</th><th>Удирдах</th></tr>
+								<?php
+								$sql = "SELECT rent_user_id FROM rent WHERE rent_tuluw_id = 3";
+								$result = mysqli_query($db->conn,$sql);
+								while($row = mysqli_fetch_row($result)){
+									$user_id = $row[0];
+									$sql = "SELECT * FROM users WHERE id = $user_id";
+									$db->print_user($img_user,$sql,3,$_SESSION['user_type']);
+								}
+								?>
+							</table>
+						</div>
 						<div class='col-sm-12'style=';margin-bottom:20px;border-bottom: 1px solid #7f7f7f;'>Админ</div>
 						<div class='col-sm-12'>
 							<table class='table table-striped mt-3'>
