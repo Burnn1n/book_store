@@ -58,19 +58,20 @@ class BookController extends Controller
 			$sql = "INSERT INTO book(book_name,book_online_price,book_price,book_author,book_quantity,book_about,
 			book_pages,book_image,book_category,book_home,updated_at,book_rent_price)
 			values('$c1','$c4','$c3','$c2','$c5','$c7','$c6',null,'$c9','1',null,'$c8');";
-			if(mysqli_query($conn,$sql)) echo "yeah";
+			if(mysqli_query($conn,$sql)) echo "yeah_insert";
 			else echo mysqli_error($conn);
 
-			//$data = file_get_contents($_FILES['file']["tmp_name"]);
-			//$sql = "UPDATE book SET book_image = '$data' WHERE book_id = '$id'";
-			//if(!mysqli_query($this->conn,$sql)){
-			//echo "<script>alert('amjiltgui')</script>";
-			//}
-			//else{
-			//	echo "<script>alert('yess')</script>";
-			//}
+			//pdf file
+			if(!empty($_FILES['pdf'])){
+				$file_name = $_FILES['pdf']['name'];
+				$file_tmp = $_FILES['pdf']['tmp_name'];
+				$fil = "C:/xampp/htdocs/projects/Laravel/book/resources/e_books/".$file_name;
+				move_uploaded_file($file_tmp,$fil);
+				$sql = "update book set book_file_name='$file_name' where book_name='$c1'";
+				if(mysqli_query($conn,$sql)) echo "yeah_pdf";
+				else echo mysqli_error($conn);
+			}
 			header("Location: /book");
 			exit;
 		}
-		
 }

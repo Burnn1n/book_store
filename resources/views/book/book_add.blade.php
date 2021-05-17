@@ -1,12 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<?php
-include('C:\xampp\htdocs\projects\Laravel\book\app\Http\Controllers\commonFunctions.php');
-$db = new db();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-}
-?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -130,6 +123,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 											<input type="file" name="img"accept="image/*">
 										</td>
 									</tr>
+									<tr>
+										<td class ='nm'>Номны pdf file:</td>
+										<td class='desc'>
+											<input type="file" name="pdf"accept=".pdf">
+										</td>
+									</tr>
 								</tbody>
 							</table>
 							<div class='row' style='margin-left:90px;'>
@@ -137,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									<p><span class = 'error'></span></p>
 								</div>
 								<div class='col-sm-6' style='float:left;'>
-									<input class='button'type='submit'name='cancel' value='Болих'>
+									<input class='button'type='reset'name='cancel' value='Болих'>
 								</div>
 								<div class='col-sm-6' style='float:left;'>
 									<input class='button'type='submit'name='save' value='Хадгалах'>

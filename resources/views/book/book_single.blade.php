@@ -105,6 +105,25 @@ if(isset($_GET['upload'])){
 		exit;
 	}
 }
+if(isset($_GET['delete'])){
+	if(isset($_SESSION['user_id'])){
+		if($_SESSION['user_type'] == 1){
+			$sql = "DELETE FROM book WHERE book_name='$book_name'";
+			mysqli_query($db->conn,$sql);
+			header("Location: /book");
+			exit;
+		}
+		else{
+			header("Location: /");
+			exit;
+		}
+	}
+	else{
+		header("Location: /");
+		exit;
+	}
+}
+
 
 //upload hiih gej baigaad bolih uyd
 if(isset($_GET['cancel_file'])){
@@ -168,7 +187,7 @@ if(isset($_GET['buy_pdf'])){
 		}
 		//tataj awah uildel
 		else{
-			$filename = "C:/xampp/htdocs/projects/Laravel/book/resources/e_books/$file.pdf";
+			$filename = "C:/xampp/htdocs/projects/Laravel/book/resources/e_books/$file";
 			if(file_exists($filename)) {
 				header('Content-Description: File Transfer');
 				header('Content-Type: application/octet-stream');
@@ -369,11 +388,12 @@ if(isset($_GET['rent'])){
 							//zowhon admin baih uyd
 							if(isset($_SESSION['user_type'])and$_SESSION['user_type'] == "1"){
 								if(!isset($_SESSION['edit'])){
-									echo '<div class="col-sm-4"><input type="submit" value="edit" name = "edit"></div>';
+									echo '<div class="col-sm-6"><input type="submit" value="edit" name = "edit"></div>';
 								}
+								echo '<div class="col-sm-6"><input type="submit" value="delete" name = "delete"></div>';
 								//engiin uyd ebook-nii talaarh medeelel
 								if(!isset($_SESSION['upload'])){
-									echo "<div class = 'col-sm-8'><input type='submit' value='upload ebook' name = 'upload'></div>";
+									echo "<div class = 'col-sm-8 '><input id= 'dl'type='submit' value='upload ebook' name = 'upload'></div>";
 
 									echo "<div class='col-sm-12'><table style='margin-left:0px;'>
 									<tr>
@@ -407,7 +427,7 @@ if(isset($_GET['rent'])){
 									echo "<div class='col-sm-12'>
 									<form action='/book/{{$book_name}}' method='GET' id='2'>
 									<input type='text' name='my_file' value='$file' required> <br>
-									<input type='submit' name='cancel_file' value='Болих'>
+									<input type='submit' name='cancel_file' value='Болих' formnovalidate>
           				<input type='submit' name='save_file' value='Хадгалах'>
 									</form>
 									</div>
@@ -430,4 +450,13 @@ if(isset($_GET['rent'])){
 		</div>
 	</body>
 </html>
+<script type="text/javascript">
+    var elems = document.getElementsByName('delete');
+    var confirmIt = function (e) {
+        if (!confirm('Номыг устгахдаа итгэлтэй байна уу?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>
 @endsection
