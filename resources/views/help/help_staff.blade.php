@@ -5,19 +5,10 @@ include('C:\xampp\htdocs\projects\Laravel\book\app\Http\Controllers\commonFuncti
 $db = new db();
 
 //newtreegu bol butsaagdana
-if(empty($_SESSION['user_id'])){
+if(empty($_SESSION['user_id'] or $_SESSION['user_type'] == 3)){
 	header("Location: /login");
 	exit;
 }
-// text submit hiih uyd
-if(!empty($_GET['req'])){
-	$id = $_SESSION['user_id'];
-	$txt = $_GET['req'];
-	$sql = "INSERT INTO qa(qa_text,qa_user)VALUES('$txt',$id)";
-	mysqli_query($db->conn,$sql);
-	echo "<script>alert('amjilttai')</script>";
-}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,8 +25,8 @@ if(!empty($_GET['req'])){
 					{{ csrf_field()}}
 					<table class='table table-striped mt-3'>
 					<tr>
-					<th>email</th>
-					<th>text</th>
+					<th>Нэр</th>
+					<th>Текст</th>
 					</tr>
 					<?php
 						$sql = "SELECT * FROM qa";
@@ -43,9 +34,9 @@ if(!empty($_GET['req'])){
 						while($row = mysqli_fetch_assoc($result)){
 							$user = $row['qa_user'];
 							$sql = "SELECT user_email from users where id = $user";
-							$user = $db->single_value($sql);
+							$user1 = $db->single_value($sql);
 							$txt = $row['qa_text']; 
-							echo "<tr><td>$user</td><td>$txt</td></tr>";
+							echo "<tr><td><a href='/user/$user'>$user1</a></td><td>$txt</td></tr>";
 						}
 					?>
 					</table>

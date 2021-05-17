@@ -71,6 +71,14 @@ class BookController extends Controller
 				if(mysqli_query($conn,$sql)) echo "yeah_pdf";
 				else echo mysqli_error($conn);
 			}
+			//$data = file_get_contents($_FILES['file']["tmp_name"]);
+			//$sql = "UPDATE book SET book_image = '$data' WHERE book_id = '$id'";
+			//if(!mysqli_query($this->conn,$sql)){
+			//echo "<script>alert('amjiltgui')</script>";
+			//}
+			//else{
+			//	echo "<script>alert('yess')</script>";
+			//}
 			header("Location: /book");
 			exit;
 		}
